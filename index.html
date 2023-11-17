@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registraction form</title>
+    <!-- all-css  -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #80808014;
+        }
+
+        /* Registration_css-start  */
+        .terms_condotion {
+            display: flex;
+            align-items: center;
+        }
+
+        form,
+        table {
+            padding: 30px;
+            box-shadow: 0px 0px 9px #a39e9e66;
+            width: 500px;
+            margin: auto;
+            margin-top: 50px !important;
+            border-radius: 10px;
+            background: white;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        label {
+            font-size: 14px;
+        }
+
+        .form_boxes {
+            justify-content: space-between;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .form_boxes input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 0;
+            background: #80808012;
+            color: #868686;
+            box-shadow: 0px 0px 5px #8080807a;
+            width: 70%;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #868686;
+        }
+
+        .terms_condotion input {
+            width: auto;
+            margin-right: 10px;
+            box-shadow: none;
+        }
+
+        button {
+            border: 0;
+            background: rgb(80, 133, 0);
+            color: white;
+            font-size: 12px;
+            border-radius: 10px;
+            margin-top: 30px;
+            padding: 15px 20px;
+            cursor: pointer;
+        }
+
+        /* Registration_css-end  */
+
+
+        /* entries-table-start  */
+        table {
+            width: auto;
+            margin-top: 30px !important;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .entries_table {
+            margin: 80px 0;
+        }
+
+        .required-message {
+            display: none;
+            color: red;
+            font-size: 12px;
+            width: 100%;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        th,
+        td {
+            width: 150px;
+            text-align: center;
+        }
+
+        td {
+            padding-top: 10px;
+        }
+
+        .terms_condition div {
+            display: flex;
+            align-items: center;
+        }
+
+        .terms_condition input {
+            margin-right: 5px;
+        }
+
+        .terms_condition span {
+            text-align: start;
+        }
+
+        /* entries-table-end  */
+    </style>
+</head>
+
+<body>
+    <!-- Registration_start -->
+    <form id="registrationForm">
+        <h1>Registration Form</h1>
+        <div class="form_boxes">
+            <label for="name">Name:</label>
+            <input required type="text" id="name" placeholder="Enter Full Name">
+            <span class="required-message" id="nameRequired">Name is required.</span>
+        </div>
+        <div class="form_boxes">
+            <label for="email">Email:</label>
+            <input required type="email" id="email" placeholder="Enter Email">
+            <span class="required-message" id="emailRequired">Email is required.</span>
+        </div>
+        <div class="form_boxes">
+            <label for="password">Password:</label>
+            <input required type="password" id="password" placeholder="Enter Password">
+            <span class="required-message" id="passwordRequired">Password is required.</span>
+        </div>
+        <div class="form_boxes">
+            <label for="date-birth">Date of Birth:</label>
+            <input required type="date" id="dob" max="2005-11-16" min="1968-11-16">
+            <span class="required-message" id="dobRequired">Date of Birth is required.</span>
+        </div>
+        <div class="terms_condition">
+            <div>
+                <input required type="checkbox" id="terms">
+                <p>Accept Terms and Conditions</p>
+            </div>
+            <span class="required-message" id="termsRequired">You must accept the Terms and Conditions.</span>
+        </div>
+        <button type="button" onclick="submitForm()">SUBMIT</button>
+    </form>
+    <!-- Registration_end -->
+
+
+    <!-- entries_table_start  -->
+    <div class="entries_table">
+        <h2>Entries</h2>
+        <table id="entriesTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>DOB</th>
+                    <th>Accepted Terms?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--  values are dynamically -->
+            </tbody>
+        </table>
+    </div>
+    <!-- entries_table_end  -->
+
+
+    <!-- all_js  -->
+    <script src="js/main.js"></script>
+
+    <script>
+        function submitForm() {
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var dob = document.getElementById('dob').value;
+            var terms = document.getElementById('terms').checked;
+
+            if (name && email && password && dob && terms) {
+                var table = document.getElementById('entriesTable').getElementsByTagName('tbody')[0];
+                var newRow = table.insertRow(table.rows.length);
+
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+                var cell3 = newRow.insertCell(2);
+                var cell4 = newRow.insertCell(3);
+                var cell5 = newRow.insertCell(4);
+
+                cell1.innerHTML = name;
+                cell2.innerHTML = email;
+                cell3.innerHTML = password;
+                cell4.innerHTML = dob;
+                cell5.innerHTML = terms ? 'Accepted' : 'Not Accepted';
+
+                // Clear form fields and messages
+                document.getElementById('name').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('dob').value = '';
+                document.getElementById('terms').checked = false;
+
+                // Hide required messages
+                document.getElementById('nameRequired').style.display = 'none';
+                document.getElementById('emailRequired').style.display = 'none';
+                document.getElementById('passwordRequired').style.display = 'none';
+                document.getElementById('dobRequired').style.display = 'none';
+                document.getElementById('termsRequired').style.display = 'none';
+            } else {
+                // Display required messages
+                document.getElementById('nameRequired').style.display = name ? 'none' : 'block';
+                document.getElementById('emailRequired').style.display = email ? 'none' : 'block';
+                document.getElementById('passwordRequired').style.display = password ? 'none' : 'block';
+                document.getElementById('dobRequired').style.display = dob ? 'none' : 'block';
+                document.getElementById('termsRequired').style.display = terms ? 'none' : 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>
